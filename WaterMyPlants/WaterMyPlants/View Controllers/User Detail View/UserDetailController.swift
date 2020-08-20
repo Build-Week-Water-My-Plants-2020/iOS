@@ -1,8 +1,8 @@
 //
-//  PlantRepresentation.swift
+//  UserDetailController.swift
 //  WaterMyPlants
 //
-//  Created by Dojo on 8/19/20.
+//  Created by Morgan Smith on 8/19/20.
 //  Copyright © 2020 Dojo. All rights reserved.
 //
 
