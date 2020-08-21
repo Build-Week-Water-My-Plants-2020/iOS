@@ -10,6 +10,7 @@
 		02612F9E24EE454A00E87D4A /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02612F9D24EE454A00E87D4A /* PlantRepresentation.swift */; };
 		02612FA024EE455700E87D4A /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02612F9F24EE455700E87D4A /* UserRepresentation.swift */; };
 		02612FC824EE4CDB00E87D4A /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02612FC724EE4CDB00E87D4A /* Bearer.swift */; };
+		02612FCA24EF5C2100E87D4A /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02612FC924EF5C2100E87D4A /* Plant+Convenience.swift */; };
 		0262B43A24EE198B009A35A3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0262B43924EE198B009A35A3 /* CoreDataStack.swift */; };
 		0262B43E24EE19D7009A35A3 /* User+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0262B43D24EE19D7009A35A3 /* User+Convenience.swift */; };
 		02D35FF924EE1D1E008F7493 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FF824EE1D1E008F7493 /* Login.swift */; };
@@ -27,7 +28,6 @@
 		02D3603024EE2914008F7493 /* PlantDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02D3602F24EE2914008F7493 /* PlantDetail.storyboard */; };
 		02D3603224EE2928008F7493 /* UserDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02D3603124EE2928008F7493 /* UserDetail.storyboard */; };
 		02D3603424EE32B5008F7493 /* PlantTableView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02D3603324EE32B5008F7493 /* PlantTableView.storyboard */; };
-		388D9EE724EF56AF009DDB0C /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D9EE624EF56AF009DDB0C /* Plant+Convenience.swift */; };
 		8464480E24EE091700E34862 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464480D24EE091700E34862 /* AppDelegate.swift */; };
 		8464481024EE091700E34862 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464480F24EE091700E34862 /* SceneDelegate.swift */; };
 		8464481524EE091700E34862 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464481324EE091700E34862 /* Main.storyboard */; };
@@ -56,6 +56,7 @@
 		02612F9D24EE454A00E87D4A /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
 		02612F9F24EE455700E87D4A /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
 		02612FC724EE4CDB00E87D4A /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
+		02612FC924EF5C2100E87D4A /* Plant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Convenience.swift"; sourceTree = "<group>"; };
 		0262B43924EE198B009A35A3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		0262B43D24EE19D7009A35A3 /* User+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Convenience.swift"; sourceTree = "<group>"; };
 		02D35FF824EE1D1E008F7493 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		02D3602F24EE2914008F7493 /* PlantDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantDetail.storyboard; sourceTree = "<group>"; };
 		02D3603124EE2928008F7493 /* UserDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetail.storyboard; sourceTree = "<group>"; };
 		02D3603324EE32B5008F7493 /* PlantTableView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantTableView.storyboard; sourceTree = "<group>"; };
-		388D9EE624EF56AF009DDB0C /* Plant+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Plant+Convenience.swift"; path = "../../../../../Downloads/iOS/WaterMyPlants/WaterMyPlants/Models/Plant+Convenience.swift"; sourceTree = "<group>"; };
 		8464480A24EE091700E34862 /* WaterMyPlants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterMyPlants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8464480D24EE091700E34862 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8464480F24EE091700E34862 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,12 +125,12 @@
 			isa = PBXGroup;
 			children = (
 				0262B43924EE198B009A35A3 /* CoreDataStack.swift */,
-				388D9EE624EF56AF009DDB0C /* Plant+Convenience.swift */,
 				0262B43D24EE19D7009A35A3 /* User+Convenience.swift */,
 				02D3602A24EE256D008F7493 /* Plants.xcdatamodeld */,
 				02612F9D24EE454A00E87D4A /* PlantRepresentation.swift */,
 				02612F9F24EE455700E87D4A /* UserRepresentation.swift */,
 				02612FC724EE4CDB00E87D4A /* Bearer.swift */,
+				02612FC924EF5C2100E87D4A /* Plant+Convenience.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,11 +407,11 @@
 				02D3600024EE1DFA008F7493 /* PlantDetailControlller.swift in Sources */,
 				02D3600D24EE1FB9008F7493 /* Networking.swift in Sources */,
 				02D3600324EE1E65008F7493 /* UserDetailController.swift in Sources */,
-				388D9EE724EF56AF009DDB0C /* Plant+Convenience.swift in Sources */,
 				02D35FFB24EE1D3A008F7493 /* LoginViewController.swift in Sources */,
 				02D3600A24EE1EEC008F7493 /* PlantTableViewCell.swift in Sources */,
 				02D35FFE24EE1DE0008F7493 /* PlantDetailViewController.swift in Sources */,
 				02D3602C24EE256D008F7493 /* Plants.xcdatamodeld in Sources */,
+				02612FCA24EF5C2100E87D4A /* Plant+Convenience.swift in Sources */,
 				8464481024EE091700E34862 /* SceneDelegate.swift in Sources */,
 				0262B43E24EE19D7009A35A3 /* User+Convenience.swift in Sources */,
 			);
