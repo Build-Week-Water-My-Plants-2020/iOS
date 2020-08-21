@@ -24,7 +24,8 @@ class CoreDataStack {
         container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
-
+ 
+    
 
     var mainContext: NSManagedObjectContext {
         return container.viewContext
