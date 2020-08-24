@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 extension User {
     // MARK: - Properties
 
