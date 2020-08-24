@@ -113,6 +113,9 @@
                                         <state key="normal" title="SAVE CHANGES">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveButtonTapped:" destination="iS9-FX-pcK" eventType="touchUpInside" id="M3I-zr-wLi"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -136,6 +139,13 @@
                         <viewLayoutGuide key="safeArea" id="tgo-Vd-Qgw"/>
                     </view>
                     <navigationItem key="navigationItem" title="Plant Parenthood" id="Rap-Sv-fiL"/>
+                    <connections>
+                        <outlet property="h2oFrequencyTextField" destination="cPU-C4-XNV" id="wKC-4n-FOs"/>
+                        <outlet property="nicknameTextField" destination="jOl-Pn-NV6" id="R3K-Ra-jaL"/>
+                        <outlet property="plantImageView" destination="uZK-bC-p4d" id="z4Q-ZB-NhQ"/>
+                        <outlet property="plantSpeciesTextField" destination="E6p-PT-loC" id="jEf-Iv-o19"/>
+                        <outlet property="saveChangesButton" destination="4wQ-Jx-qZg" id="LB9-EX-sqH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lCO-kx-Ppy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

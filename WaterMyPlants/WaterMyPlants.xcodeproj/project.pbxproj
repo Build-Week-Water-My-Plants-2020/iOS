@@ -16,7 +16,7 @@
 		02D35FF924EE1D1E008F7493 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FF824EE1D1E008F7493 /* Login.swift */; };
 		02D35FFB24EE1D3A008F7493 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FFA24EE1D3A008F7493 /* LoginViewController.swift */; };
 		02D35FFE24EE1DE0008F7493 /* PlantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FFD24EE1DE0008F7493 /* PlantDetailViewController.swift */; };
-		02D3600024EE1DFA008F7493 /* PlantDetailControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FFF24EE1DFA008F7493 /* PlantDetailControlller.swift */; };
+		02D3600024EE1DFA008F7493 /* PlantDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D35FFF24EE1DFA008F7493 /* PlantDetailController.swift */; };
 		02D3600324EE1E65008F7493 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D3600224EE1E65008F7493 /* UserDetailController.swift */; };
 		02D3600524EE1E77008F7493 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D3600424EE1E77008F7493 /* UserDetailViewController.swift */; };
 		02D3600824EE1EC9008F7493 /* PlantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D3600724EE1EC9008F7493 /* PlantTableViewController.swift */; };
@@ -62,7 +62,7 @@
 		02D35FF824EE1D1E008F7493 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		02D35FFA24EE1D3A008F7493 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		02D35FFD24EE1DE0008F7493 /* PlantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailViewController.swift; sourceTree = "<group>"; };
-		02D35FFF24EE1DFA008F7493 /* PlantDetailControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailControlller.swift; sourceTree = "<group>"; };
+		02D35FFF24EE1DFA008F7493 /* PlantDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailController.swift; sourceTree = "<group>"; };
 		02D3600224EE1E65008F7493 /* UserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
 		02D3600424EE1E77008F7493 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		02D3600724EE1EC9008F7493 /* PlantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewController.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				02D35FFD24EE1DE0008F7493 /* PlantDetailViewController.swift */,
-				02D35FFF24EE1DFA008F7493 /* PlantDetailControlller.swift */,
+				02D35FFF24EE1DFA008F7493 /* PlantDetailController.swift */,
 			);
 			path = "Plant Detail View";
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 				02D3600824EE1EC9008F7493 /* PlantTableViewController.swift in Sources */,
 				8464480E24EE091700E34862 /* AppDelegate.swift in Sources */,
 				02612F9E24EE454A00E87D4A /* PlantRepresentation.swift in Sources */,
-				02D3600024EE1DFA008F7493 /* PlantDetailControlller.swift in Sources */,
+				02D3600024EE1DFA008F7493 /* PlantDetailController.swift in Sources */,
 				02D3600D24EE1FB9008F7493 /* Networking.swift in Sources */,
 				02D3600324EE1E65008F7493 /* UserDetailController.swift in Sources */,
 				02D35FFB24EE1D3A008F7493 /* LoginViewController.swift in Sources */,
