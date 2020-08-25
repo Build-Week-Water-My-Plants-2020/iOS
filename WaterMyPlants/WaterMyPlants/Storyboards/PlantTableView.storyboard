@@ -47,7 +47,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="plantLabel" destination="T54-up-Ai7" id="V1m-rj-KgR"/>
+                                    <outlet property="plantImageView" destination="Sjr-pF-SeD" id="FUT-6U-9r5"/>
+                                    <outlet property="plantLabel" destination="T54-up-Ai7" id="9eC-bI-0Ms"/>
                                     <segue destination="vFL-MW-c1B" kind="show" id="Hfr-We-U5Q"/>
                                 </connections>
                             </tableViewCell>
@@ -72,6 +73,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="plantTableView" destination="8U5-XB-HLc" id="H1U-Ql-jLH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0t-96-5Co" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

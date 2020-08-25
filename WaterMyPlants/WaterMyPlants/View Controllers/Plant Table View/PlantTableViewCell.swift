@@ -9,16 +9,18 @@
 import UIKit
 
 class PlantTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var plantImageView: UIImageView!
+    @IBOutlet weak var plantLabel: UILabel!
+    var plant: Plant?
+    
+    
+    private func updateViews() {
+        guard let plant = plant else { return }
+        
+        plantLabel.text = plant.nickname
+        /*   plantImageView.image = first sprint. Avatar  is a string, but need a UIImage.*/
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
+   
 
 }
