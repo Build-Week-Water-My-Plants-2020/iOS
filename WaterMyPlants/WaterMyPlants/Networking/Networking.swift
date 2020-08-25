@@ -14,36 +14,41 @@ enum NetworkError: Error {
     case badAuth
     case otherError
     case badData
+    case badUrl
     case noDecode
+    case networkError
+    case failedSignIn
+    case noToken
+    
 }
 
 class NetworkController {
     typealias ClassCompletionHandler = (Result<Bool, NetworkError>) -> Void
     typealias CompletionHandler = (Error?) -> Void
-
+    
     private let baseURL = URL(string: "https://watermyplants2020.herokuapp.com/api/")
     static let sharedNetworkController = NetworkController()
     var token: Bearer?
-
+    
     func registerUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in}) {
         guard let registerURL = baseURL?.appendingPathComponent("auth/register") else {
             completion(nil)
             return
         }
-
+        
         var request = URLRequest(url: registerURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let jsonEncoder = JSONEncoder()
-
+        
         do {
             let jsonData = try jsonEncoder.encode(user)
             request.httpBody = jsonData
         } catch {
             print("Error encoding user object: \(error)")
         }
-
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 201 {
@@ -52,7 +57,7 @@ class NetworkController {
             }
             if let error = error { completion(error); return}
             guard let data = data else { completion(NSError()); return}
-
+            
             let decoder = JSONDecoder()
             do {
                 let currentUser = try decoder.decode(UserRepresentation.self, from: data)
@@ -65,50 +70,70 @@ class NetworkController {
             completion(nil)
         }.resume()
     }
-
-    func loginUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in}) {
+    
+    func loginUser(with user: UserRepresentation, completion: @escaping ClassCompletionHandler) {
+        
         guard let requestURL = baseURL?.appendingPathComponent("auth/login") else {
-            completion(nil)
+            completion(.failure(.badUrl))
             return
         }
-
+        
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
+        if user.password.isEmpty {
+            completion(.failure(.failedSignIn))
+            return
+        }
+        
+        if user.username.isEmpty {
+            completion(.failure(.failedSignIn))
+            return
+        }
+        
         let jsonEncoder = JSONEncoder()
-
+        
         do {
-            let jsonData = try jsonEncoder.encode(user)
-            request.httpBody = jsonData
+            request.httpBody = try jsonEncoder.encode(user)
         } catch {
             print("Error encoding user object: \(error)")
+            completion(.failure(.failedSignIn))
         }
-
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let response = response as? HTTPURLResponse,
-                response.statusCode != 200 {
-                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+            if let error = error {
+                print("Sign in failed with error: \(error)")
+                completion(.failure(.failedSignIn))
                 return
             }
-
-            if let error = error { completion(error); return}
-            guard let data = data else { completion(NSError()); return}
-
-            let decoder = JSONDecoder()
-
+            
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode != 200 else {
+                    completion(.failure(.failedSignIn))
+                    return
+            }
+            
+            guard let data = data else {
+                print("Data not received")
+                completion(.failure(.failedSignIn))
+                return
+            }
+            
             do {
+                let decoder = JSONDecoder()
                 self.token = try decoder.decode(Bearer.self, from: data)
                 print(String(describing: self.token))
             } catch {
                 print("Error decoding bearer object: \(error)")
-                completion(error)
+                completion(.failure(.failedSignIn))
                 return
             }
-            completion(nil)
-        }.resume()
+        }
+            
+        .resume()
     }
-
+    
     private func createRegisteredUser(with representation: UserRepresentation) {
         User(userRepresentation: representation)
         do {
@@ -117,7 +142,7 @@ class NetworkController {
             print("error saving registered user to core data)")
         }
     }
-
+    
 }
 
 

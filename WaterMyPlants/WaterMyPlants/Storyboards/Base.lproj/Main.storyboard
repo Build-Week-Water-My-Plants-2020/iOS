@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z1t-Cf-vfA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z1t-Cf-vfA">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -67,6 +67,9 @@
                                             <segment title="Sign Up"/>
                                             <segment title="Sign In"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="loginTypeChanged:" destination="8O8-FC-Wrx" eventType="valueChanged" id="usQ-NO-OoL"/>
+                                        </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qis-oO-rhC">
                                         <rect key="frame" x="20" y="130" width="334" height="54.5"/>
@@ -118,6 +121,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="buttonTapped:" destination="8O8-FC-Wrx" eventType="touchUpInside" id="6FI-YT-Lv8"/>
                                             <segue destination="zEe-hE-QcX" kind="show" id="h56-YW-Hlm"/>
                                         </connections>
                                     </button>
@@ -147,6 +151,12 @@
                         <viewLayoutGuide key="safeArea" id="23b-nI-OKE"/>
                     </view>
                     <navigationItem key="navigationItem" id="jXb-ox-lcZ"/>
+                    <connections>
+                        <outlet property="loginSegmentedController" destination="RZU-bD-5Ho" id="Oja-ei-XMo"/>
+                        <outlet property="passwordTextField" destination="J9R-H6-BHy" id="6mo-Nf-JUF"/>
+                        <outlet property="signInButton" destination="RSG-QY-DrT" id="e3d-Aq-zYJ"/>
+                        <outlet property="usernameTextField" destination="SW4-bh-PnK" id="TpF-zy-7i3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zVQ-0u-bmy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
