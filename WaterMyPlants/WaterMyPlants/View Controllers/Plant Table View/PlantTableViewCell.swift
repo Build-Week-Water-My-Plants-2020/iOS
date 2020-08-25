@@ -18,7 +18,7 @@ class PlantTableViewCell: UITableViewCell {
         guard let plant = plant else { return }
         
         plantLabel.text = plant.nickname
-        /*   plantImageView.image = first sprint. Avatar  is a string, but need a UIImage.*/
+        /*   plantImageView.image =  */
     }
     
    
