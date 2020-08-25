@@ -59,7 +59,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Plant Parenthood" id="nFZ-8K-nVh">
-                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="Oh0-4f-xF1"/>
+                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="Oh0-4f-xF1">
+                            <connections>
+                                <action selector="refresh:" destination="aey-LR-pS8" id="EEi-Md-C9z"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="plus" catalog="system" id="2XX-jz-Acw">
                                 <connections>

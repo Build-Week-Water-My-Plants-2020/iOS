@@ -25,7 +25,10 @@ class PlantTableViewController: UITableViewController {
         // MARK: - Table view data source
         
         
-        
+    @IBAction func refresh(_ sender: Any) {
+        plantTableView.reloadData()
+    }
+    
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
             return plants.count
