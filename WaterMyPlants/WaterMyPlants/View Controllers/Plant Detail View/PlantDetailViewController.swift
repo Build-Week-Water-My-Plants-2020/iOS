@@ -34,7 +34,7 @@ class PlantDetailViewController: UIViewController {
         }
         
         else {
-            let newPlant = Plant(nickname: nickname, species: species, h20frequency: Int16)
+            let newPlant = Plants?(nickname: nickname, species: species, h20frequency: Int16)
             plantDetailController?.sendPlantToServer(plant: newPlant)
             
             do {

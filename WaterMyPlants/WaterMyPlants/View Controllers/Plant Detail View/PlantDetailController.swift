@@ -71,7 +71,7 @@ class PlantDetailController  {
         }
     }
     
-    func deletePlantFromServer(plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
+    func deletePlantFromServer(plant: Plants, completion: @escaping CompletionHandler = { _ in }) {
         
         guard let uuid = plant.id else {
             completion(NSError())
@@ -90,14 +90,14 @@ class PlantDetailController  {
         }.resume()
     }
     
-    func sendPlantToServer(plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
+    func sendPlantToServer(plant: Plants, completion: @escaping CompletionHandler = { _ in }) {
         let uuid = plant.id ?? UUID()
         let requestURL = putURL
         var request = URLRequest(url: requestURL)
         request.httpMethod = "PUT"
     }
     
-    func update(nickname: String, species: String, h20frequency: Int16, plant: Plant) {
+    func update(nickname: String, species: String, h20frequency: Int16, plant: Plants) {
         plant.nickname = nickname
         plant.species = species
         plant.h20frequency = Int16
@@ -115,7 +115,7 @@ class PlantDetailController  {
         
         var plantsToCreate = representationsByID
         
-        let fetchRequest: NSFetchRequest<Plants> = Plant.fetchRequest()
+        let fetchRequest: NSFetchRequest<Plants> = Plants.fetchRequest()
         
         fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
         
@@ -133,7 +133,7 @@ class PlantDetailController  {
                 }
                 
                 for representation in plantsToCreate.values {
-                    Plant(plantRepresentation: representation, context: context)
+                    Plants(plantRepresentation: representation, context: context)
                 }
             } catch {
                 print("Error fetching plants for UUIDs: \(error)")
@@ -142,7 +142,7 @@ class PlantDetailController  {
         try CoreDataStack.shared.save(context: context)
     }
     
-    private func update(plant: Plant, with representation: PlantRepresentation) {
+    private func update(plant: Plants, with representation: PlantRepresentation) {
         plant.nickname = representation.nickname
         plant.species = representation.species
         plant.h20Frequency = Int16(representation.h20Frequency)
