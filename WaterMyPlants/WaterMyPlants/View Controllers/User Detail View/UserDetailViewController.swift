@@ -9,11 +9,30 @@
 import UIKit
 
 class UserDetailViewController: UIViewController {
-
+    
+    
+    @IBOutlet var userImage: UIImageView!
+    
+    @IBOutlet var usernameTextField: UITextField!
+    
+    @IBOutlet var phoneNumberTextField: UITextField!
+    
+    @IBOutlet var passwordTextField: UITextField!
+    
+    
+    @IBAction func save(_ sender: UIButton) {
+        
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
+        
     }
     
 

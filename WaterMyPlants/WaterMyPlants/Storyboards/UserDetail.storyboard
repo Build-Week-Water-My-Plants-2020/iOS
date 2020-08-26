@@ -98,6 +98,9 @@
                                         <state key="normal" title="SAVE CHANGES">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="save:" destination="tye-ec-zoe" eventType="touchUpInside" id="6GJ-aW-bDW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -124,6 +127,12 @@
                         <viewLayoutGuide key="safeArea" id="xLt-4H-71B"/>
                     </view>
                     <navigationItem key="navigationItem" title="Plant Parenthood" id="LQV-rQ-h9u"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="Xdd-8r-aXA" id="Rvx-lp-Ioj"/>
+                        <outlet property="phoneNumberTextField" destination="W4X-O2-jdx" id="lbf-b1-O39"/>
+                        <outlet property="userImage" destination="cn5-TZ-l4X" id="hwi-3u-qZT"/>
+                        <outlet property="usernameTextField" destination="kYM-cq-QQS" id="fFJ-i8-qVM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ga0-1U-FQA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
