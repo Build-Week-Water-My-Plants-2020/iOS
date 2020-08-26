@@ -9,16 +9,19 @@
 import UIKit
 
 class PlantTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var plantImageView: UIImageView!
+    @IBOutlet weak var plantLabel: UILabel!
+    var plant: Plant?
+    
+    
+    private func updateViews() {
+        guard let plant = plant else { return }
+        
+        plantLabel.text = plant.species
+        plantImageView.image = UIImage(contentsOfFile: plant.avatar!)
+   
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
+   
 
 }
