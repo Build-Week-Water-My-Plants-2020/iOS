@@ -18,7 +18,7 @@ class PlantDetailViewController: UIViewController {
     
     var plantDetailController: PlantDetailController?
     
-    var plant: Plants? {
+    var plant: Plant? {
         didSet {
             updateViews()
         }
@@ -29,12 +29,12 @@ class PlantDetailViewController: UIViewController {
         guard let nickname = nicknameTextField.text, let species = plantSpeciesTextField.text else {return}
         
         
-        if let existingPlant = plants {
-            plantDetailController?.update(nickname: nickname, species: species, h20Frequencey: Int16)
+        if let existingPlant = plant {
+            plantDetailController?.update(nickname: nickname, species: species, h20frequency: Int16)
         }
         
         else {
-            let newPlant = Plants?(nickname: nickname, species: species, h20frequency: Int16)
+            let newPlant = Plant?(nickname: nickname, species: species, h20frequency: Int16)
             plantDetailController?.sendPlantToServer(plant: newPlant)
             
             do {
