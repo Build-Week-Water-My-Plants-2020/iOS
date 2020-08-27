@@ -126,7 +126,7 @@ class PlantDetailController  {
                 
                 for plant in existingPlants {
                     
-                    guard let id = plant.id, let representation = representationsByID[id] else { return }
+                    guard case let id = plant.id, let representation = representationsByID[id] else { return }
                     self.update(plant: plant, with: representation)
                     plantsToCreate.removeValue(forKey: id)
                 }
