@@ -9,10 +9,10 @@
 import Foundation
 
 struct PlantRepresentation: Equatable, Codable {
-    var id: Int?
+    var id: Int16?
     var nickname: String
     var species: String?
-    var h20Frequencey: Int?
+    var h20Frequency: Int16?
     var userId: Int?
     var avatar: String?
     var lastWateredAt: Date?
