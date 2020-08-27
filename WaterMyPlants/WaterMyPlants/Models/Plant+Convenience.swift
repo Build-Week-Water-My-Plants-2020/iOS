@@ -20,10 +20,10 @@ extension Plant {
         formatter.dateStyle = .short
         let today = Date()
         guard let nickname = nickname else { return nil }
-        return PlantRepresentation(id: Int(id),
+        return PlantRepresentation(id: Int16?(id),
                                    nickname: nickname,
                                    species: species ?? "",
-                                   h20Frequencey: Int(h20Frequency),
+                                   h20Frequency: Int16(h20Frequency),
                                    userId: Int(userId),
                                    avatar: avatar,
                                    lastWateredAt: lastWateredAt)
@@ -32,24 +32,26 @@ extension Plant {
     // MARK: - Convenience Initalizers
     // Plant data object Initalizer
     @discardableResult convenience init(
+        id: Int16?,
         nickname: String,
         species: String,
-        h20Frequencey: Int16,
+        h20Frequency: Int16,
         avatar: String,
         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.nickname = nickname
         self.species = species
-        self.h20Frequency = h20Frequencey
+        self.h20Frequency = h20Frequency
         self.avatar = avatar
     }
 
     // This will convert a PlantRepresentation into a Plant object for saving on Coredata
     @discardableResult convenience init?(plantRepresentation: PlantRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(
+            id: plantRepresentation.id,
             nickname: plantRepresentation.nickname,
             species: plantRepresentation.species ?? "",
-            h20Frequencey: Int16(plantRepresentation.h20Frequencey ?? 0),
+            h20Frequency: Int16(plantRepresentation.h20Frequency ?? 0),
             avatar: plantRepresentation.avatar ?? "",
             context: context)
     }
