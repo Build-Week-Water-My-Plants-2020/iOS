@@ -31,3 +31,23 @@ class WaterMyPlantsTests: XCTestCase {
     }
 
 }
+
+
+// app is running
+// app is failing
+// signing
+// login
+// scrolling the table view
+// clicking on a plant
+// adding a plant
+// adding a user
+// clicking on a user
+// adding a image
+// giving a new nickname
+// Editing a plant
+// Editing a user
+// closing the app
+// testing the network and api
+// refreshing
+// notification pop-up
+

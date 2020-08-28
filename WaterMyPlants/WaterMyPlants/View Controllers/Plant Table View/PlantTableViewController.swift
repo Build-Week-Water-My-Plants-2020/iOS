@@ -54,14 +54,16 @@ class PlantTableViewController: UITableViewController {
             
             if segue.identifier == "userSegue" {
                 if let addUserVC = segue.destination as? UserDetailViewController {
-        /*            addUserVC.delegate = self */
+                    
+                    
+                   
                 }
             } else if segue.identifier == "addPlantSegue" {
                 if let addPlantVC = segue.destination as? PlantDetailViewController {
-                    /*    addPlantVC.delegate = self */
+                    
                 } else if segue.identifier == "plantDetailSegue" {
                     if let indexPath = tableView.indexPathForSelectedRow, let plantDetailVC = segue.destination as? PlantDetailViewController {
-                    /*    plantDetailVC.delegate = self */
+                   
                     }
                 }
                 
@@ -74,4 +76,7 @@ class PlantTableViewController: UITableViewController {
         
     }
 
-    // need a extension to conform to AddPlantDelegate, and a page for the protocol AddPlantDelegate
+   
+
+
+// Question: So now that we have merged the remote repo on Github, do we need to pull so the project in our local repo (on our computer) get those changes.
