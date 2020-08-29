@@ -8,11 +8,10 @@
 
 import Foundation
 
-struct UserRepresentation: Codable {
+struct UserRepresentation: Equatable, Codable {
     var id: Int?
     var username: String
     var password: String
-    var phone: String?
+    var phoneNumber: String?
     var avatar: String?
-    var bearer: String?
 }

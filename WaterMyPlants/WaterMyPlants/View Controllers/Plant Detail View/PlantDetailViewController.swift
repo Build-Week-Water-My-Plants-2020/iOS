@@ -16,26 +16,45 @@ class PlantDetailViewController: UIViewController {
     @IBOutlet weak var h2oFrequencyTextField: UITextField!
     @IBOutlet weak var saveChangesButton: UIButton!
     
-    var plantDetailController: PlantDetailController?
+    let networkController = Networking.sharedNetworkController
     
     var plant: Plant? {
         didSet {
             updateViews()
         }
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViews()
+    }
+
+
+    func updateViews() {
+        print("update views")
+        guard isViewLoaded else {return}
+
+        title = plant?.nickName ?? "Add New Plant"
+        nicknameTextField.text = plant?.nickName ?? ""
+        plantSpeciesTextField.text = plant?.species ?? ""
+
+        if plant != nil {
+            saveChangesButton.setTitle("Edit Plant", for: .normal)
+        }
+        else {
+            saveChangesButton.setTitle("Add Plant", for: .normal)
+        }
+    }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         
-        guard let nickname = nicknameTextField.text, let species = plantSpeciesTextField.text else {return}
+        guard let nickName = nicknameTextField.text, let species = plantSpeciesTextField.text else {return}
         
         if let existingPlant = plant {
-            plantDetailController?.update(nickname: nickname, species: species, h20Frequency: 0, plant: plant!)
-        }
-        
-        else {
-            let newPlant = Plant(id: 0, nickname: nickname, species: species, h20Frequency: 0, avatar: "")
-            plantDetailController?.sendPlantToServer(plant: newPlant)
-            
+            networkController.updatePlantOnCD(with: existingPlant, nickName: nickName, species: species, h2oFrequency: h2oFrequencyTextField.text ?? "1")
+        } else {
+            let newPlant = Plant(nickName: nickName, species: species, h2oFrequency: h2oFrequencyTextField.text ?? "1", userId: networkController.currentCDUser?.id ?? 1, image: "", dateLastWatered: "", notificationTime: "")
+           networkController.sendPlantToServer(plant: newPlant)  
             do {
                 try CoreDataStack.shared.mainContext.save()
             } catch {
@@ -45,29 +64,5 @@ class PlantDetailViewController: UIViewController {
 
         navigationController?.popViewController(animated: true)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateViews()
-        
-        
-       
-    }
-    
-    
-    func updateViews() {
-        print("update views")
-        guard isViewLoaded else {return}
-        
-        title = plant?.nickname ?? "Add New Plant"
-        nicknameTextField.text = plant?.nickname ?? ""
-        plantSpeciesTextField.text = plant?.species ?? ""
-        
-        if plant != nil {
-            saveChangesButton.setTitle("Edit Plant", for: .normal)
-        }
-        else {
-            saveChangesButton.setTitle("Add Plant", for: .normal)
-        }
-    }
+
 }

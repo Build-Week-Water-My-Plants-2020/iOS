@@ -16,8 +16,7 @@ extension User {
     /// Object passed to Backend
     var userRepresentation: UserRepresentation? {
         guard let username = username,
-            let password = password,
-            let bearer = bearer
+            let password = password
             else {
                 print("Error creating UserRepresentation for backend.")
                 return nil
@@ -26,9 +25,7 @@ extension User {
         return UserRepresentation(id: Int(id),
                                   username: username,
                                   password: password,
-                                  phone: phone,
-                                  avatar: avatar,
-                                  bearer: bearer)
+                                  phoneNumber: phoneNumber ?? "")
     }
 
     // MARK: - Initalizers
@@ -37,18 +34,16 @@ extension User {
     @discardableResult convenience init(id: Int16,
                                         username: String,
                                         password: String,
-                                        phone: String,
-                                        avatar: String,
-                                        bearer: String,
+                                        phoneNumber: String,
+                                        avatar: String? = "",
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
 
         self.init(context: context)
         self.id = id
         self.username = username
         self.password = password
-        self.phone = phone
+        self.phoneNumber = phoneNumber
         self.avatar = avatar
-        self.bearer = bearer
     }
 
     /// Creates User from UserRepresentation Data (Backend Data) -> CoreData
@@ -59,9 +54,8 @@ extension User {
         self.init(id: Int16(userRepresentation.id ?? 1),
                   username: userRepresentation.username,
                   password: userRepresentation.password,
-                  phone: userRepresentation.phone ?? "",
+                  phoneNumber: userRepresentation.phoneNumber ?? "",
                   avatar: userRepresentation.avatar ?? "",
-                  bearer: userRepresentation.bearer ?? "",
                   context: context)
     }
 }

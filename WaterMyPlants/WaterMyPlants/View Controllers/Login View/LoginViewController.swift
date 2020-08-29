@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
     
     //MARK: - Properties
     
-    let networkController = NetworkController.sharedNetworkController
+    let networkController = Networking.sharedNetworkController
     var loginType = LoginType.signUp
     let moc = CoreDataStack.shared.mainContext
     
@@ -29,48 +29,47 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginSegmentedController: UISegmentedControl!
     @IBOutlet weak var signInButton: UIButton!
     
-    
+    @IBOutlet weak var errorLabel: UILabel!
+
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        errorLabel.alpha = 0
+
     }
     
     //MARK: - IBActions
     @IBAction func buttonTapped(_ sender: UIButton) {
         guard let usernameInput = usernameTextField.text, !usernameInput.isEmpty,
             let passwordInput = passwordTextField.text, !passwordInput.isEmpty else {
-                print("Bad input")
+                self.errorLabel.alpha = 1
                 return
         }
-        let newUser = UserRepresentation(id: nil,
-                                         username: usernameInput,
+        let newUser = UserRepresentation(username: usernameInput,
                                          password: passwordInput,
-                                         phone: nil,
-                                         avatar: nil,
-                                         bearer: networkController.token?.token)
+                                         phoneNumber: "")
+
         if loginType == .signUp {
-            networkController.registerUser(with: newUser) { bearerToken in
-                var userToSave = User(userRepresentation: newUser, context: self.moc)
-                
-                do {
-                    try self.moc.save()
-                } catch {
-                    print("Error saving newly created User")
-                    return
+            networkController.registerUser(with: newUser) { (error) in
+                if let error = error {
+                    print("Error for user registering: \(error)")
+                    DispatchQueue.main.async {
+                        self.errorLabel.alpha = 1
+                    }
                 }
             }
-            
-            let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true) {
-                self.loginType = .signIn
-                self.loginSegmentedController.selectedSegmentIndex = 1
-                self.signInButton.setTitle("Sign In", for: .normal)
-            }
-        } else {
+                    let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in", preferredStyle: .alert)
+                    let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    alertController.addAction(alertAction)
+                    self.present(alertController, animated: true) {
+                        self.loginType = .signIn
+                        self.loginSegmentedController.selectedSegmentIndex = 1
+                        self.signInButton.setTitle("Sign In", for: .normal)
+                    }
+                    DispatchQueue.main.async {
+                        self.errorLabel.alpha = 1
+                    }
+        } else if loginType == .signIn {
             networkController.loginUser(with: newUser) { result in
                 do {
                     let success = try result.get()
@@ -90,6 +89,8 @@ class LoginViewController: UIViewController {
                             print("Other error occured")
                         }
                     }
+                    self.errorLabel.alpha = 1
+                    return
                 }
             }
             self.dismiss(animated: true, completion: nil)

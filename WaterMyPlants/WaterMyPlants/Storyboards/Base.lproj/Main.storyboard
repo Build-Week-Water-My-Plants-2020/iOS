@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z1t-Cf-vfA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="z1t-Cf-vfA">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -53,7 +53,7 @@
                                 <rect key="frame" x="0.0" y="196" width="414" height="702"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="slg-hM-sj8">
-                                <rect key="frame" x="20" y="128" width="374" height="315"/>
+                                <rect key="frame" x="20" y="128" width="374" height="358.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plant Parenthood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="XMa-A0-E0B">
                                         <rect key="frame" x="20" y="0.0" width="334" height="53"/>
@@ -113,8 +113,14 @@
                                             <constraint firstAttribute="trailing" secondItem="J9R-H6-BHy" secondAttribute="trailing" id="RSC-Kz-M0b"/>
                                         </constraints>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect or Missing Username/Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEN-QV-5cU">
+                                        <rect key="frame" x="20" y="285" width="334" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-QY-DrT">
-                                        <rect key="frame" x="40" y="285" width="294" height="30"/>
+                                        <rect key="frame" x="40" y="328.5" width="294" height="30"/>
                                         <color key="backgroundColor" red="0.16216105219999999" green="0.35744193200000002" blue="0.1495135725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="SIGN UP">
@@ -129,12 +135,16 @@
                                 <constraints>
                                     <constraint firstItem="XMa-A0-E0B" firstAttribute="leading" secondItem="slg-hM-sj8" secondAttribute="leading" constant="20" id="3xa-pc-jHv"/>
                                     <constraint firstAttribute="trailing" secondItem="RSG-QY-DrT" secondAttribute="trailing" constant="40" id="DMm-bt-Unt"/>
+                                    <constraint firstItem="rEN-QV-5cU" firstAttribute="top" secondItem="bgl-6B-7Cl" secondAttribute="bottom" constant="23" id="KCZ-LM-TmX"/>
                                     <constraint firstAttribute="trailing" secondItem="qis-oO-rhC" secondAttribute="trailing" constant="20" id="OWJ-FD-qfT"/>
                                     <constraint firstItem="qis-oO-rhC" firstAttribute="leading" secondItem="slg-hM-sj8" secondAttribute="leading" constant="20" id="P7z-1W-8Uk"/>
                                     <constraint firstAttribute="trailing" secondItem="XMa-A0-E0B" secondAttribute="trailing" constant="20" id="WEt-Vc-mEa"/>
                                     <constraint firstItem="bgl-6B-7Cl" firstAttribute="leading" secondItem="slg-hM-sj8" secondAttribute="leading" constant="20" id="WzD-cL-QlN"/>
                                     <constraint firstItem="RSG-QY-DrT" firstAttribute="leading" secondItem="slg-hM-sj8" secondAttribute="leading" constant="40" id="gTN-R1-5Bh"/>
                                     <constraint firstAttribute="trailing" secondItem="bgl-6B-7Cl" secondAttribute="trailing" constant="20" id="j1E-2r-9ec"/>
+                                    <constraint firstItem="rEN-QV-5cU" firstAttribute="leading" secondItem="slg-hM-sj8" secondAttribute="leading" constant="20" id="mDb-Ba-8MF"/>
+                                    <constraint firstItem="RSG-QY-DrT" firstAttribute="top" secondItem="rEN-QV-5cU" secondAttribute="bottom" constant="23" id="vKh-46-Geo"/>
+                                    <constraint firstAttribute="trailing" secondItem="rEN-QV-5cU" secondAttribute="trailing" constant="20" id="yIp-Ci-HUa"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -152,6 +162,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="jXb-ox-lcZ"/>
                     <connections>
+                        <outlet property="errorLabel" destination="rEN-QV-5cU" id="FxA-rV-y9T"/>
                         <outlet property="loginSegmentedController" destination="RZU-bD-5Ho" id="Oja-ei-XMo"/>
                         <outlet property="passwordTextField" destination="J9R-H6-BHy" id="6mo-Nf-JUF"/>
                         <outlet property="signInButton" destination="RSG-QY-DrT" id="e3d-Aq-zYJ"/>

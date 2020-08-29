@@ -15,45 +15,49 @@ extension Plant {
 
     // If you already have a Plant, this will turn it into it's representation
     var plantRepresentation: PlantRepresentation? {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .short
-        let today = Date()
-        guard let nickname = nickname else { return nil }
-        return PlantRepresentation(id: Int16?(id),
-                                   nickname: nickname,
-                                   species: species ?? "",
-                                   h20Frequency: Int16(h20Frequency),
-                                   userId: Int(userId),
-                                   avatar: avatar,
-                                   lastWateredAt: lastWateredAt)
+        return PlantRepresentation(nickName: nickName ?? "none",
+                                   species: species ?? "none",
+                                   h2oFrequency: h2oFrequency ?? "1",
+                                   image: image ?? "",
+                                   dateLastWatered: dateLastWatered ?? "Aug 1", notificationEnabled: notificationEnabled, notificationTime: notificationTime ?? "10:30:00", userId: Int(userId))
     }
 
     // MARK: - Convenience Initalizers
     // Plant data object Initalizer
     @discardableResult convenience init(
-        id: Int16?,
-        nickname: String,
+        id: Int16? = 0,
+        nickName: String,
         species: String,
-        h20Frequency: Int16,
-        avatar: String,
+        h2oFrequency: String,
+        userId: Int16? = 0,
+        image: String,
+        dateLastWatered: String,
+        notificationEnabled: Bool = false,
+        notificationTime: String,
         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
-        self.nickname = nickname
+        self.id = id ?? 0
+        self.nickName = nickName
         self.species = species
-        self.h20Frequency = h20Frequency
-        self.avatar = avatar
+        self.h2oFrequency = h2oFrequency
+        self.userId = userId ?? 0
+        self.image = image
+        self.dateLastWatered = dateLastWatered
+        self.notificationTime = notificationTime
     }
 
     // This will convert a PlantRepresentation into a Plant object for saving on Coredata
     @discardableResult convenience init?(plantRepresentation: PlantRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+       // self.init(context: context)
         self.init(
-            id: plantRepresentation.id,
-            nickname: plantRepresentation.nickname,
-            species: plantRepresentation.species ?? "",
-            h20Frequency: Int16(plantRepresentation.h20Frequency ?? 0),
-            avatar: plantRepresentation.avatar ?? "",
-            context: context)
+            id: Int16(plantRepresentation.id ?? 0),
+            nickName: plantRepresentation.nickName,
+            species: plantRepresentation.species,
+            h2oFrequency: plantRepresentation.h2oFrequency,
+            userId: Int16(plantRepresentation.userId ?? 0),
+            image: plantRepresentation.image, dateLastWatered: plantRepresentation.dateLastWatered, notificationTime: plantRepresentation.notificationTime)
+
+
     }
 
 

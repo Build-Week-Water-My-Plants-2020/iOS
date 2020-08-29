@@ -9,11 +9,13 @@
 import Foundation
 
 struct PlantRepresentation: Equatable, Codable {
-    var id: Int16?
-    var nickname: String
-    var species: String?
-    var h20Frequency: Int16?
+    var id: Int?
+    var nickName: String
+    var species: String
+    var h2oFrequency: String
+    var image: String
+    var dateLastWatered: String
+    var notificationEnabled: Bool
+    var notificationTime: String
     var userId: Int?
-    var avatar: String?
-    var lastWateredAt: Date?
 }

@@ -18,6 +18,8 @@ class UserDetailViewController: UIViewController {
     @IBOutlet var phoneNumberTextField: UITextField!
     
     @IBOutlet var passwordTextField: UITextField!
+
+    let networkController = Networking.sharedNetworkController
     
     
     @IBAction func save(_ sender: UIButton) {
@@ -28,11 +30,12 @@ class UserDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        
-        
+        let currentUser =  Networking.sharedNetworkController.currentCDUser
+        guard let user = currentUser else { return }
+        userImage.image = UIImage(named: user.avatar ?? "defaultPlant")
+        usernameTextField.text = user.username
+        phoneNumberTextField.text = user.phoneNumber
+        passwordTextField.text = user.password
     }
     
 

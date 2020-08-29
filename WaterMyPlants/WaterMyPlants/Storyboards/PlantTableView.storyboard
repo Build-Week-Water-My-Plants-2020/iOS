@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -49,7 +49,7 @@
                                 <connections>
                                     <outlet property="plantImageView" destination="Sjr-pF-SeD" id="FUT-6U-9r5"/>
                                     <outlet property="plantLabel" destination="T54-up-Ai7" id="9eC-bI-0Ms"/>
-                                    <segue destination="vFL-MW-c1B" kind="show" id="Hfr-We-U5Q"/>
+                                    <segue destination="vFL-MW-c1B" kind="show" identifier="plantDetailSegue" id="Hfr-We-U5Q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -131,7 +131,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1oA-zL-dHS"/>
+        <segue reference="Hfr-We-U5Q"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="defaultPlant2" width="860" height="901"/>
