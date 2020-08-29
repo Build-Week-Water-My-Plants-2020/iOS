@@ -39,7 +39,26 @@ class WaterMyPlantsTests: XCTestCase {
       print("Done waiting for expectations")
     }
 
+    func testCreatingUser() {
+        let username = "iosTest4"
+        let password = "iosTest4Password"
+        let phoneNumber = "555-555-555"
 
+        let user = User(id: 1, username: username, password: password, phoneNumber: phoneNumber)
+        XCTAssertNotNil(user)
+    }
+
+    func testCreatingPlant() {
+        let nickName = "Aloe Vera Test"
+        let species = "Aloe Test"
+        let h2oFrequency = "1"
+        let image = "none"
+        let dateLastWatered = "Dec 6"
+        let notificationTime = "10:00:00"
+
+        let plant = Plant(nickName: nickName, species: species, h2oFrequency: h2oFrequency, image: image, dateLastWatered: dateLastWatered, notificationTime: notificationTime)
+        XCTAssertNotNil(plant)
+    }
 
 
 }
