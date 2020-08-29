@@ -25,7 +25,7 @@ enum NetworkError: Error {
 class Networking {
     typealias ClassCompletionHandler = (Result<Bool, NetworkError>) -> Void
     typealias CompletionHandler = (Error?) -> Void
-    
+
     private let baseURL = URL(string: "https://watermyplants2020.herokuapp.com/api/")
 
     static let sharedNetworkController = Networking()
@@ -71,12 +71,6 @@ class Networking {
             print("this is the core data logged in current user: \(String(describing: currentCDUser))")
         }
     }
-
-    init() {
-        fetchPlantsFromServer()
-        fetchRegisteredUsers()
-    }
-    
     
     func registerUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in }) {
         guard let registerURL = baseURL?.appendingPathComponent("auth/register") else {
@@ -160,14 +154,14 @@ class Networking {
         }.resume()
     }
 
-    private func fetchRegisteredUsers(completion: @escaping ClassCompletionHandler = { _ in }) {
+    func fetchRegisteredUsers(completion: @escaping ClassCompletionHandler = { _ in }) {
         guard let requestURL = baseURL?.appendingPathComponent("users") else { return }
 
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 print("Error fetching all users: \(error)")
                 DispatchQueue.main.async {
@@ -200,11 +194,11 @@ class Networking {
                 }
                 return
             }
-        }.resume()
+        }
 
     }
 
-    private func fetchUserCD(with representation: UserRepresentation) {
+     func fetchUserCD(with representation: UserRepresentation) {
         let fetchRequestUser: [User]? = {
             let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
             let moc = CoreDataStack.shared.mainContext
@@ -219,6 +213,7 @@ class Networking {
 
         if let results = fetchRequestUser {
             let filteredUser = results.filter({($0.username?.contains(representation.username))!})
+            if filteredUser.isEmpty == true { return }
             let filtered = filteredUser[0]
             self.currentCDUser = filtered
         } else {
