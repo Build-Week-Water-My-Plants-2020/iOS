@@ -30,6 +30,7 @@ class Networking {
 
     static let sharedNetworkController = Networking()
     var token: Token?
+    var testUser: UserRepresentation?
     var allUsers: [UserRepresentation] = []
     var allPlants: [PlantRepresentation] = []
     var currentUserServerPlants: [PlantRepresentation] = [] {
@@ -71,6 +72,11 @@ class Networking {
             print("this is the core data logged in current user: \(String(describing: currentCDUser))")
         }
     }
+
+    init() {
+        fetchRegisteredUsers()
+        fetchPlantsFromServer()
+    }
     
     func registerUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in }) {
         guard let registerURL = baseURL?.appendingPathComponent("auth/register") else {
@@ -99,6 +105,7 @@ class Networking {
             }
             if let error = error { completion(error); return}
             guard let data = data else { completion(NSError()); return}
+            self.testUser = user
             self.currentRegisteredUser = user
         }.resume()
     }
@@ -154,8 +161,10 @@ class Networking {
         }.resume()
     }
 
-    func fetchRegisteredUsers(completion: @escaping ClassCompletionHandler = { _ in }) {
-        guard let requestURL = baseURL?.appendingPathComponent("users") else { return }
+    func fetchRegisteredUsers(completion: @escaping CompletionHandler = { _ in }) {
+        guard let requestURL = baseURL?.appendingPathComponent("users") else {
+            completion(nil)
+            return }
 
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
@@ -165,7 +174,7 @@ class Networking {
             if let error = error {
                 print("Error fetching all users: \(error)")
                 DispatchQueue.main.async {
-                    completion(.failure(.otherError))
+                    completion(error)
                 }
                 return
             }
@@ -173,7 +182,7 @@ class Networking {
             guard let data = data else {
                 print("No data returned by data users")
                 DispatchQueue.main.async {
-                    completion(.failure(.badData))
+                    completion(NSError())
                 }
                 return
             }
@@ -185,16 +194,16 @@ class Networking {
                 self.allUsers = allUsers
                 print("successfully decoded allUsers from networkController \(allUsers)")
                 DispatchQueue.main.async {
-                    completion(.success(true))
+                   completion(nil)
                 }
             } catch {
                 print("Error decoding user representations: \(error)")
                 DispatchQueue.main.async {
-                    completion(.failure(.noDecode))
+                   completion(error)
                 }
                 return
             }
-        }
+        }.resume()
 
     }
 
