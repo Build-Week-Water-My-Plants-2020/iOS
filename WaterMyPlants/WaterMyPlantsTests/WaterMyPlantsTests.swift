@@ -17,6 +17,13 @@ class WaterMyPlantsTests: XCTestCase {
     var userTest = User(id: 51, username: "iosUser33", password: "iosUser33", phoneNumber: "")
     var userToRegister = UserRepresentation(username: "iOSTestRegister", password: "iOSTestRegister", phoneNumber: "")
 
+    private func updateUsername(user: UserRepresentation, string: String) -> UserRepresentation {
+        var changedUser = user
+        changedUser.username = changedUser.username + string
+        return changedUser
+    }
+
+
     func testFetchingAllUsers() {
          let expectation = self.expectation(description: "All users should not be empty.")
           let networkController = Networking.sharedNetworkController
@@ -103,9 +110,9 @@ class WaterMyPlantsTests: XCTestCase {
     func testFetchingUserFromCoreDataWithBadData() {
         let expectation = self.expectation(description: "currentCDUser should be nil")
         let networkController = Networking.sharedNetworkController
-        userTestRepBad.username = userTestRepBad.username + "1"
+        userTestRepBad = updateUsername(user: userTestRepBad, string: "3")
         networkController.fetchUserCD(with: userTestRepBad)
-        XCTAssertFalse(networkController.currentCDUser != nil)
+        XCTAssertFalse(networkController.currentCDUser?.username == userTestRepBad.username)
             print("Fulfilling expectation")
             expectation.fulfill()
 
@@ -115,18 +122,38 @@ class WaterMyPlantsTests: XCTestCase {
     }
 
     func testRegisterUser() {
-        let expectation = self.expectation(description: "Test user should not be nil.")
         let networkController = Networking.sharedNetworkController
-        userToRegister.username = userToRegister.username + "1"
-        networkController.registerUser(with: userToRegister) {_ in
-            XCTAssertFalse(networkController.testUser == nil)
-            print("Fulfilling expectation")
-            expectation.fulfill()
+        userToRegister = updateUsername(user: userToRegister, string: "3")
+        networkController.registerUser(with: userToRegister) { (error) in
+            if let error = error {
+                print("Error for user registering: \(error)")
+            }
+            XCTAssert(networkController.currentRegisteredUser?.username == self.userToRegister.username)
         }
 
-        print("Waiting for expectation(s)")
-        waitForExpectations(timeout: 20)
-        print("Done waiting for expectations")
     }
+
+    func testLoginUser() {
+        let networkController = Networking.sharedNetworkController
+        networkController.loginUser(with: userTestRep) { (result) in
+                do {
+                            let success = try result.get()
+                        } catch {
+                            if let error = error as? NetworkError {
+                                switch error {
+                                case .failedSignIn:
+                                    print("sign in failed")
+                                case .noToken, .badData:
+                                    print("no data recieved")
+                                default:
+                                    print("Other error occured")
+                                }
+                            }
+                            return
+                        }
+            XCTAssert(networkController.token != nil)
+        }
+    }
+
     
 }
