@@ -15,6 +15,7 @@ class WaterMyPlantsTests: XCTestCase {
     var userTestRepBad = UserRepresentation(id: 100, username: "iosUserBad", password: "iosUserBad", phoneNumber: "")
 
     var userTest = User(id: 51, username: "iosUser33", password: "iosUser33", phoneNumber: "")
+    var userToRegister = UserRepresentation(username: "iOSTestRegister", password: "iOSTestRegister", phoneNumber: "")
 
     func testFetchingAllUsers() {
          let expectation = self.expectation(description: "All users should not be empty.")
@@ -26,7 +27,7 @@ class WaterMyPlantsTests: XCTestCase {
           }
 
         print("Waiting for expectation(s)")
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 10)
         print("Done waiting for expectations")
       }
 
@@ -101,7 +102,8 @@ class WaterMyPlantsTests: XCTestCase {
 
     func testFetchingUserFromCoreDataWithBadData() {
         let expectation = self.expectation(description: "currentCDUser should be nil")
-          let networkController = Networking.sharedNetworkController
+        let networkController = Networking.sharedNetworkController
+        userTestRepBad.username = userTestRepBad.username + "1"
         networkController.fetchUserCD(with: userTestRepBad)
         XCTAssertFalse(networkController.currentCDUser != nil)
             print("Fulfilling expectation")
@@ -109,6 +111,21 @@ class WaterMyPlantsTests: XCTestCase {
 
         print("Waiting for expectation(s)")
         waitForExpectations(timeout: 10)
+        print("Done waiting for expectations")
+    }
+
+    func testRegisterUser() {
+        let expectation = self.expectation(description: "Test user should not be nil.")
+        let networkController = Networking.sharedNetworkController
+        userToRegister.username = userToRegister.username + "1"
+        networkController.registerUser(with: userToRegister) {_ in
+            XCTAssertFalse(networkController.testUser == nil)
+            print("Fulfilling expectation")
+            expectation.fulfill()
+        }
+
+        print("Waiting for expectation(s)")
+        waitForExpectations(timeout: 20)
         print("Done waiting for expectations")
     }
     
