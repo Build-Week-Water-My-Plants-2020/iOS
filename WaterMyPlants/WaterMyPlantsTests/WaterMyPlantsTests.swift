@@ -60,5 +60,26 @@ class WaterMyPlantsTests: XCTestCase {
         XCTAssertNotNil(plant)
     }
 
+    func testCreatingUserRepresentation() {
+        let username = "iosTest6"
+        let password = "iosTest6Password"
+        let phoneNumber = "666-666-666"
+
+        let userRep = UserRepresentation(username: username, password: password, phoneNumber: phoneNumber)
+        XCTAssertNotNil(userRep)
+    }
+
+    func testCreatingPlantRepresentation() {
+        let nickName = "Aloe Vera Test 2"
+        let species = "Aloe Test 2"
+        let h2oFrequency = "2"
+        let image = "none 2"
+        let dateLastWatered = "Dec 7"
+        let notificationTime = "10:30:00"
+
+        let plantRep = PlantRepresentation(nickName: nickName, species: species, h2oFrequency: h2oFrequency, image: image, dateLastWatered: dateLastWatered, notificationEnabled: false, notificationTime: notificationTime, userId: 10)
+        XCTAssertNotNil(plantRep)
+    }
+
 
 }
