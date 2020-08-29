@@ -25,7 +25,7 @@ enum NetworkError: Error {
 class Networking {
     typealias ClassCompletionHandler = (Result<Bool, NetworkError>) -> Void
     typealias CompletionHandler = (Error?) -> Void
-    
+
     private let baseURL = URL(string: "https://watermyplants2020.herokuapp.com/api/")
 
     static let sharedNetworkController = Networking()
@@ -71,12 +71,6 @@ class Networking {
             print("this is the core data logged in current user: \(String(describing: currentCDUser))")
         }
     }
-
-    init() {
-        fetchPlantsFromServer()
-        fetchRegisteredUsers()
-    }
-    
     
     func registerUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in }) {
         guard let registerURL = baseURL?.appendingPathComponent("auth/register") else {
@@ -167,7 +161,7 @@ class Networking {
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 print("Error fetching all users: \(error)")
                 DispatchQueue.main.async {
@@ -200,7 +194,7 @@ class Networking {
                 }
                 return
             }
-        }.resume()
+        }
 
     }
 
