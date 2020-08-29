@@ -20,13 +20,4 @@ class WaterMyPlantsUITests: XCTestCase {
         return app
     }
 
-
-    func testSegueToAddNewPlant() {
-        let app = launch()
-        let itemButton = app.navigationBars["Plant Parenthood"].children(matching: .button).matching(identifier: "Item").element(boundBy: 1)
-        itemButton.tap()
-        XCTAssertEqual(app.navigationBars.staticTexts.firstMatch.label, "Add New Plant")
-    }
-    
-
 }
