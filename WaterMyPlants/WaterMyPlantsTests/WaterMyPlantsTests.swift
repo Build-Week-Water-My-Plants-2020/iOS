@@ -11,6 +11,11 @@ import XCTest
 
 class WaterMyPlantsTests: XCTestCase {
 
+    var userTestRep = UserRepresentation(id: 51, username: "iosUser33", password: "iosUser33", phoneNumber: "")
+    var userTestRepBad = UserRepresentation(id: 100, username: "iosUserBad", password: "iosUserBad", phoneNumber: "")
+
+    var userTest = User(id: 51, username: "iosUser33", password: "iosUser33", phoneNumber: "")
+
     func testFetchingAllUsers() {
          let expectation = self.expectation(description: "All users should not be empty.")
           let networkController = Networking.sharedNetworkController
@@ -80,6 +85,33 @@ class WaterMyPlantsTests: XCTestCase {
         let plantRep = PlantRepresentation(nickName: nickName, species: species, h2oFrequency: h2oFrequency, image: image, dateLastWatered: dateLastWatered, notificationEnabled: false, notificationTime: notificationTime, userId: 10)
         XCTAssertNotNil(plantRep)
     }
+
+    func testFetchingUserFromCoreData() {
+        let expectation = self.expectation(description: "currentCDUser should not be nill")
+          let networkController = Networking.sharedNetworkController
+        networkController.fetchUserCD(with: userTestRep)
+        XCTAssertFalse(networkController.currentCDUser == nil)
+            print("Fulfilling expectation")
+            expectation.fulfill()
+
+        print("Waiting for expectation(s)")
+        waitForExpectations(timeout: 10)
+        print("Done waiting for expectations")
+    }
+
+    func testFetchingUserFromCoreDataWithBadData() {
+        let expectation = self.expectation(description: "currentCDUser should be nil")
+          let networkController = Networking.sharedNetworkController
+        networkController.fetchUserCD(with: userTestRepBad)
+        XCTAssertFalse(networkController.currentCDUser != nil)
+            print("Fulfilling expectation")
+            expectation.fulfill()
+
+        print("Waiting for expectation(s)")
+        waitForExpectations(timeout: 10)
+        print("Done waiting for expectations")
+    }
+    
 
 
 }

@@ -204,7 +204,7 @@ class Networking {
 
     }
 
-    private func fetchUserCD(with representation: UserRepresentation) {
+     func fetchUserCD(with representation: UserRepresentation) {
         let fetchRequestUser: [User]? = {
             let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
             let moc = CoreDataStack.shared.mainContext
@@ -219,6 +219,7 @@ class Networking {
 
         if let results = fetchRequestUser {
             let filteredUser = results.filter({($0.username?.contains(representation.username))!})
+            if filteredUser.isEmpty == true { return }
             let filtered = filteredUser[0]
             self.currentCDUser = filtered
         } else {
