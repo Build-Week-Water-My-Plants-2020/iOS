@@ -7,27 +7,39 @@
 //
 
 import XCTest
+@testable import WaterMyPlants
 
 class WaterMyPlantsTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testFetchingAllUsers() {
+         let expectation = self.expectation(description: "All users should not be empty.")
+          let networkController = Networking.sharedNetworkController
+        networkController.fetchRegisteredUsers() {_ in
+            XCTAssertFalse(networkController.allUsers.isEmpty)
+            print("Fulfilling expectation")
+            expectation.fulfill()
+          }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        print("Waiting for expectation(s)")
+        waitForExpectations(timeout: 5)
+        print("Done waiting for expectations")
+      }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testFetchingPlantsFromServer() {
+       let expectation = self.expectation(description: "All plants should not be empty.")
+        let networkController = Networking.sharedNetworkController
+      networkController.fetchPlantsFromServer() {_ in
+          XCTAssertFalse(networkController.allPlants.isEmpty)
+          print("Fulfilling expectation")
+          expectation.fulfill()
         }
+
+      print("Waiting for expectation(s)")
+      waitForExpectations(timeout: 10)
+      print("Done waiting for expectations")
     }
+
+
+
 
 }

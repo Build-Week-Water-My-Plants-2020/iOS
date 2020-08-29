@@ -160,7 +160,7 @@ class Networking {
         }.resume()
     }
 
-    private func fetchRegisteredUsers(completion: @escaping ClassCompletionHandler = { _ in }) {
+    func fetchRegisteredUsers(completion: @escaping ClassCompletionHandler = { _ in }) {
         guard let requestURL = baseURL?.appendingPathComponent("users") else { return }
 
         var request = URLRequest(url: requestURL)
