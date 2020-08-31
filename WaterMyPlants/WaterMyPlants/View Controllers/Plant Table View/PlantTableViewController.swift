@@ -32,10 +32,12 @@ class PlantTableViewController: UITableViewController {
             if let error = error {
                 print("error fetching user's plants\(error)")
             }
+            self.plants = self.networkController.currentUserPlants
+            DispatchQueue.main.async {
+                self.plantTableView.reloadData()
+                self.viewDidLoad()
+            }
         }
-        plants = networkController.currentUserPlants
-        plantTableView.reloadData()
-        viewDidLoad()
     }
 
     // MARK: - Table view data source

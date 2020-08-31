@@ -35,11 +35,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.alpha = 0
-
     }
     
+    
     //MARK: - IBActions
-    @IBAction func buttonTapped(_ sender: UIButton) {
+    @IBAction func buttonTapped(_ sender: Any) {
         guard let usernameInput = usernameTextField.text, !usernameInput.isEmpty,
             let passwordInput = passwordTextField.text, !passwordInput.isEmpty else {
                 self.errorLabel.alpha = 1
@@ -55,47 +55,39 @@ class LoginViewController: UIViewController {
                     print("Error for user registering: \(error)")
                     DispatchQueue.main.async {
                         self.errorLabel.alpha = 1
+                        return
                     }
                 }
             }
-                    let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in", preferredStyle: .alert)
-                    let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                    alertController.addAction(alertAction)
-                    self.present(alertController, animated: true) {
-                        self.loginType = .signIn
-                        self.loginSegmentedController.selectedSegmentIndex = 1
-                        self.signInButton.setTitle("Sign In", for: .normal)
-                    }
+            let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true) {
+                self.loginType = .signIn
+                self.loginSegmentedController.selectedSegmentIndex = 1
+                self.signInButton.setTitle("Sign In", for: .normal)
+            }
+            DispatchQueue.main.async {
+                self.errorLabel.alpha = 0
+            }
+        } else if loginType == .signIn {
+            networkController.loginUser(with: newUser) { (error) in
+                if let error = error {
+                    print("Error for client logging in: \(error)")
                     DispatchQueue.main.async {
                         self.errorLabel.alpha = 1
                     }
-        } else if loginType == .signIn {
-            networkController.loginUser(with: newUser) { result in
-                do {
-                    let success = try result.get()
-                    if success{
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                } catch {
-                    if let error = error as? NetworkError {
-                        switch error {
-                        case .failedSignIn:
-                            print("sign in failed")
-                        case .noToken, .badData:
-                            print("no data recieved")
-                        default:
-                            print("Other error occured")
-                        }
-                    }
-                    self.errorLabel.alpha = 1
                     return
                 }
+                DispatchQueue.main.async {
+                    self.errorLabel.alpha = 0
+                    self.performSegue(withIdentifier: "userSignIn", sender: self)
+                }
             }
-            self.dismiss(animated: true, completion: nil)
+
         }
     }
+
     @IBAction func loginTypeChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             loginType = .signUp
