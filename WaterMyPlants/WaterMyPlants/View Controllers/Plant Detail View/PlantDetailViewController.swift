@@ -37,6 +37,7 @@ class PlantDetailViewController: UIViewController {
         title = plant?.nickName ?? "Add New Plant"
         nicknameTextField.text = plant?.nickName ?? ""
         plantSpeciesTextField.text = plant?.species ?? ""
+        h2oFrequencyTextField.text = plant?.h2oFrequency ?? ""
 
         if plant != nil {
             saveChangesButton.setTitle("Edit Plant", for: .normal)
@@ -52,9 +53,16 @@ class PlantDetailViewController: UIViewController {
         
         if let existingPlant = plant {
             networkController.updatePlantOnCD(with: existingPlant, nickName: nickName, species: species, h2oFrequency: h2oFrequencyTextField.text ?? "1")
+            networkController.deletePlantFromServer(plant: existingPlant)
+           networkController.sendPlantToServer(plant: existingPlant)
+            do {
+                try CoreDataStack.shared.mainContext.save()
+            } catch {
+                NSLog("Error saving managed object context: \(error)")
+            }
         } else {
             let newPlant = Plant(nickName: nickName, species: species, h2oFrequency: h2oFrequencyTextField.text ?? "1", userId: networkController.currentCDUser?.id ?? 1, image: "", dateLastWatered: "", notificationTime: "")
-           networkController.sendPlantToServer(plant: newPlant)  
+            networkController.sendPlantToServer(plant: newPlant)
             do {
                 try CoreDataStack.shared.mainContext.save()
             } catch {

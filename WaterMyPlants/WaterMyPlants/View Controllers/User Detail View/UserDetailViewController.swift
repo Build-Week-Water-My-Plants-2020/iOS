@@ -24,7 +24,7 @@ class UserDetailViewController: UIViewController {
     
     @IBAction func save(_ sender: UIButton) {
         
-        
+        navigationController?.popViewController(animated: true)
         
     }
     
@@ -32,7 +32,11 @@ class UserDetailViewController: UIViewController {
         super.viewDidLoad()
         let currentUser =  Networking.sharedNetworkController.currentCDUser
         guard let user = currentUser else { return }
-        userImage.image = UIImage(named: user.avatar ?? "defaultPlant")
+        if user.avatar == "" {
+            userImage.image = UIImage(named: "defaultAvatar")
+        } else {
+            userImage.image = UIImage(named: user.avatar ?? "defaultAvatar")
+        }
         usernameTextField.text = user.username
         phoneNumberTextField.text = user.phoneNumber
         passwordTextField.text = user.password

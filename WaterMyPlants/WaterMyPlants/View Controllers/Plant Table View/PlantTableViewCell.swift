@@ -21,8 +21,9 @@ class PlantTableViewCell: UITableViewCell {
     private func updateViews() {
         guard let plant = plant else { return }
         
-        plantLabel.text = plant.species
-        plantImageView.image = UIImage(contentsOfFile: plant.image ?? "")
+        plantLabel.text = plant.nickName
+       // plantImageView.image = UIImage(named: plant.image ?? "defaultPlant2")
+        plantImageView.image = UIImage(named: "defaultPlant2")
    
     }
     

@@ -41,6 +41,7 @@ class Networking {
     var currentUserPlants: [Plant] = [] {
         didSet {
             print("this is the current user plants: \(currentUserPlants)")
+            savePlant()
         }
     }
 
@@ -110,10 +111,10 @@ class Networking {
         }.resume()
     }
     
-    func loginUser(with user: UserRepresentation, completion: @escaping ClassCompletionHandler) {
+    func loginUser(with user: UserRepresentation, completion: @escaping CompletionHandler = { _ in }) {
         
         guard let requestURL = baseURL?.appendingPathComponent("auth/login") else {
-            completion(.failure(.badUrl))
+            completion(nil)
             return
         }
         
@@ -127,25 +128,25 @@ class Networking {
             request.httpBody = try jsonEncoder.encode(user)
         } catch {
             print("Error encoding user object: \(error)")
-            completion(.failure(.failedSignIn))
+            completion(nil)
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Sign in failed with error: \(error)")
-                completion(.failure(.failedSignIn))
+                completion(nil)
                 return
             }
             
             guard let response = response as? HTTPURLResponse,
                 response.statusCode != 201 else {
-                    completion(.failure(.failedSignIn))
+                    completion(nil)
                     return
             }
             
             guard let data = data else {
                 print("Data not received")
-                completion(.failure(.failedSignIn))
+                completion(nil)
                 return
             }
             
@@ -154,10 +155,11 @@ class Networking {
                 self.token = try decoder.decode(Token.self, from: data)
             } catch {
                 print("Error decoding bearer object: \(error)")
-                completion(.failure(.failedSignIn))
+                completion(error)
                 return
             }
             self.fetchUserCD(with: user)
+            completion(nil)
         }.resume()
     }
 
@@ -271,6 +273,7 @@ class Networking {
             do {
                 let plantRepresentations = try jsonDecoder.decode([PlantRepresentation].self, from: data)
                 self.allPlants = plantRepresentations
+                self.savePlant()
                 print("successfully decoded allPlants from networkController \(self.allPlants)")
                 DispatchQueue.main.async {
                     completion(nil)
@@ -289,20 +292,21 @@ class Networking {
         do {
             try CoreDataStack.shared.mainContext.save()
         } catch {
-            NSLog("Error saving managed object context: \(error)")
+            NSLog("Error saving plant managed object context: \(error)")
         }
     }
 
     func deletePlantFromServer(plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
 
-        guard let id = plant.plantRepresentation?.id, let token = token, let deleteURL = baseURL?.appendingPathComponent("plants/\(id)") else { return }
+        guard let token = token, let deleteURL = baseURL?.appendingPathComponent("plants/\(plant.id)") else { return }
 
         var request = URLRequest(url: deleteURL)
         request.httpMethod = HTTPMethod.delete.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(token.token, forHTTPHeaderField: "Authorization")
 
         URLSession.shared.dataTask(with: request) { _, _, error in
-            print("Deleted plant with ID: \(id)")
+            print("Deleted plant with ID: \(plant.id)")
             completion(error)
         }.resume()
     }
@@ -341,10 +345,11 @@ class Networking {
 
 
     func updatePlantOnServer(for plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
-        guard let id = plant.plantRepresentation?.id, let token = token, let updateURL = baseURL?.appendingPathComponent("plants/\(id)") else { return }
+        guard let token = token, let updateURL = baseURL?.appendingPathComponent("plants/\(plant.id)") else { return }
 
         var request = URLRequest(url: updateURL)
         request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(token.token, forHTTPHeaderField: "Authorization")
 
         let jsonEncoder = JSONEncoder()
@@ -357,15 +362,17 @@ class Networking {
             request.httpBody = jsonData
         } catch {
             print("Error encoding edited plant: \(error)")
+            completion(error)
             return
         }
 
-        URLSession.shared.dataTask(with: request) { _, response, error in
-            if let response = response as? HTTPURLResponse,
+        URLSession.shared.dataTask(with: request) { _, _, error in
+         /*   if let response = response as? HTTPURLResponse,
                 response.statusCode != 201 {
                 completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
                 return
             }
+ */
 
             if let error = error {
                 completion(error)
@@ -379,18 +386,7 @@ class Networking {
         plant.nickName = nickName
         plant.species = species
         plant.h2oFrequency = h2oFrequency
-        self.updatePlantOnServer(for: plant) { (error) in
-            if let error = error {
-                print("Error for updating Plant on Server: \(error)")
-            }
-        }
-        let moc = CoreDataStack.shared.mainContext
-        do {
-            try moc.save()
-        } catch {
-            moc.reset()
-            NSLog("Error saving managed object context: \(error)")
-        }
+        savePlant()
     }
 
     func fetchUserPlants(with user: User, completion: @escaping CompletionHandler = { _ in }) {
@@ -428,6 +424,7 @@ class Networking {
                 self.currentUserPlants = []
                 for plant in plantRepresentations {
                     let newPlant = Plant(plantRepresentation: plant)
+                    self.savePlant()
                     if let newPlant = newPlant {
                     self.currentUserPlants.append(newPlant)
                     }
